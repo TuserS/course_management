@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>create course</title>
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/sign.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+    <form class="form-signin" method="post" action="/createCourse">
+        <h1 class="h3 mb-3 font-weight-normal">Create course</h1>
+
+        <label for="inputCourseCode" class="sr-only">Course Code</label>
+        <input name="code" type="text" id="inputCourseCode" class="form-control" placeholder="Course Code" required autofocus>
+
+        <label for="inputCourseName" class="sr-only">Course Name</label>
+        <input name="name" type="text" id="inputCourseName" class="form-control" placeholder="Course Name" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Create course</button>
+        <a class="nav-link active" href="/home">Back to home page</a>
+        <p class="mt-5 mb-3 text-muted">&copy; 2018 - Nodejs Sample Project</p>
+    </form>
+
+</body>
+
+</html>

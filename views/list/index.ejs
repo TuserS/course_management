@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>student list</title>
+    <link href="../bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/sign.css" rel="stylesheet">
+    <script defer src="../js/fontawesome-all.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h2>Enrolled Students</h2>
+            </div>
+            <div class="col-6">
+                <a class="nav-link active text-center" href="/home">Back to home page</a>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <% if( students.length > 0 ){ %>
+            <div class="row">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Gender</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i = 0; i < students.length; i++){ %>
+                            <tr>
+                                <td><%= i %></td>
+                                <td><%= students[i][0].name %></td>
+                                <td><%= students[i][0].email %></td>
+                                <td><%= students[i][0].gender %></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <p>Student Not Availabe</p>
+        <% } %>
+
+
+        <footer class="mt-5 mb-3 text-muted text-center">&copy; 2018 - Nodejs Sample Project</footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>add course</title>
+    <link href="bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/sign.css" rel="stylesheet">
+    <script defer src="public/fontawesome-all.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <form method="post" action="/addCourse">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Offered Course</h2>
+                </div>
+                <div class="col-6">
+                    <a class="nav-link active text-center" href="/home">Back to home page</a>
+                </div>
+            </div>
+            <br>
+            <br>
+
+            <% if( courses.length > 0 ){ %>
+                <div class="row">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Course Code</th>
+                                <th scope="col">Course Name</th>
+                                <th scope="col">Teacher</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var i = 0; i < courses.length; i++){ %>
+                                <tr>
+                                    <td><input name="cbox" type="checkbox" id="x" value="<%= courses[i][0].courseid %>"></td>
+                                    <td><%= courses[i][0].code %></td>
+                                    <td><%= courses[i][0].name %></td>
+                                    <td><%= courses[i][0].teacher %></td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <button class="btn btn-md btn-primary" type="submit">Add course</button>
+                <br>
+            <% } else { %>
+                <p>Course Not Availabe</p>
+            <% } %>
+
+
+
+            <footer class="mt-5 mb-3 text-muted text-center">&copy; 2018 - Nodejs Sample Project</footer>
+        </form>
+    </div>
+
+</body>
+
+</html>

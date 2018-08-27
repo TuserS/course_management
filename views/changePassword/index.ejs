@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>change password</title>
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/sign.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+    <form class="form-signin" method="post" action="/changePassword">
+
+        <% if( fText ){ %>
+            <p class="alert alert-danger">
+                <%= fText %>
+            </p>
+        <% } %>
+
+
+        <h1 class="h3 mb-3 font-weight-normal">Change password</h1>
+
+        <label for="currentPassword" class="sr-only">Current Password</label>
+        <input name="current" type="password" id="currentPassword" class="form-control" placeholder="Current Password" required autofocus>
+
+        <label for="newPassword" class="sr-only">New Password</label>
+        <input name="new" type="password" id="newPassword" class="form-control" placeholder="New Password" required>
+
+        <label for="inputRetypePassword" class="sr-only">Retype Password</label>
+        <input name="retype" type="password" id="inputRetypePassword" class="form-control" placeholder="Retype Password" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Change password</button>
+        <a class="nav-link active" href="/home">Back to home page</a>
+        <p class="mt-5 mb-3 text-muted">&copy; 2018 - Nodejs Sample Project</p>
+    </form>
+
+</body>
+
+</html>

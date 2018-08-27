@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>home</title>
+    <link href="bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/home.css" rel="stylesheet">
+    <script defer src="js/fontawesome-all.js"></script>
+</head>
+
+<body  >
+    <div class="container">
+
+        <% if( sText ){ %>
+                <p class="alert alert-success"><%= sText %></p>
+        <% } %>
+
+        <% if( fText ){ %>
+                <p class="alert alert-danger"><%= fText %></p>
+        <% } %>
+
+        <br>
+
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4"><h1 class="text-center"><%= loggedUser.name %></h1></div>
+            <div class="col-4"><a href="/signout"><h6 class="text-right" style="color:#0078D7"><i class="fas fa-sign-out-alt" style="color:#0078D7"></i> Sign Out</h6></a></div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-4">
+                <h3>About Me</h3>
+            </div>
+            <div class="col-4">
+                <a href="/editProfile"><h6 class="text-right" style="color:#0078D7"><i class="fas fa-edit" style="color:#0078D7"></i> Edit Profile</h6></a>
+            </div>
+            <div class="col-4">
+                <a href="/changePassword"><h6 class="text-right" style="color:#0078D7"><i class="fas fa-edit" style="color:#0078D7"></i> Change Password</h6></a>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <table class="table table-sm">
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td><%= loggedUser.name %></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><%= loggedUser.email %></td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td><%= loggedUser.gender %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <br>
+
+        <div class="row">
+            <div class="col-6">
+                <h3>Taken Course</h3>
+            </div>
+            <div class="col-6">
+                <% if( loggedUser.role == "Teacher" ){ %>
+                    <a href="/createCourse"><h6 class="text-right" style="color:#0078D7"><i class="fas fa-plus" style="color:#0078D7"></i> Create Course</h6></a>
+                <% } else { %>
+                    <a href="/addCourse"><h6 class="text-right" style="color:#0078D7"><i class="fas fa-plus" style="color:#0078D7"></i> Add Course</h6></a>
+                <% } %>
+            </div>
+        </div>
+
+        <br>
+
+        <% if( course.length > 0 ){ %>
+            <div class="row">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Course Name</th>
+                            <% if( loggedUser.role == "Teacher" ){ %>
+                                <th scope="col">Show Student</th>
+                            <% } else { %>
+                                <th scope="col">Course Teacher</th>
+                            <% } %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i = 0; i < course.length; i++){ %>
+                            <tr>
+                                <td><%= course[i].code %></td>
+                                <td><%= course[i].name %></td>
+
+                                <% if( loggedUser.role == "Teacher" ){ %>
+                                    <td scope="col"><a href="/list/<%= course[i].courseid %>">List</a></td>
+                                <% } else { %>
+                                    <td scope="col"><%= course[i].teacher %></td>
+                                <% } %>
+
+                                <!-- <% if( loggedUser.role == "Teacher" ){ %>
+                                    <td style="color:darkred"><i class="fas fa-trash-alt" style="color:darkred"></i> Delete</td>
+                                <% } else { %>
+                                    <td style="color:darkred"><i class="fas fa-trash-alt" style="color:darkred"></i> Drop</td>
+                                <% } %> -->
+
+
+                                <% if( loggedUser.role == "Teacher" ){ %>
+                                    <td style="color:darkred" data-toggle="modal" data-target="#exampleModal<%= i %>"><i class="fas fa-trash-alt" style="color:darkred"></i> Delete</td>
+                                <% } else { %>
+                                    <td style="color:darkred" data-toggle="modal" data-target="#exampleModal<%= i %>"><i class="fas fa-trash-alt" style="color:darkred"></i> Drop</td>
+                                <% } %>
+
+
+                                <td>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal<%= i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <% if( loggedUser.role == "Teacher" ){ %>
+                                                        <form action="/cdelete" method="post">
+                                                            <button name="cid" value="<%= course[i].courseid %>" type="submit" class="btn btn-primary"> Yes </button>
+                                                        </form>
+                                                    <% } else { %>
+                                                        <form action="/cdrop" method="post">
+                                                            <button name="cid" value="<%= course[i].courseid %>" type="submit" class="btn btn-primary"> Yes </button>
+                                                        </form>
+                                                    <% } %>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Modal -->
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        <% } else { %>
+            <p>Course Not Availabe</p>
+        <% } %>
+
+
+        <br>
+
+        <div class="row">
+            <div class="col-6">
+                <h3>Statistics</h3>
+            </div>
+        </div>
+
+        <br>
+        
+        <div class="row">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Role</th>
+                        <th scope="col">Member</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Member</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2">Teacher</td>
+                        <td rowspan="2"><%= report.t %></td>
+                        <td>Male</td>
+                        <td><%= report.tm %></td>
+                    </tr>
+                    <tr>
+                        <td>Female</td>
+                        <td><%= report.tf %></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">Student</td>
+                        <td rowspan="2"><%= report.s %></td>
+                        <td>Male</td>
+                        <td><%= report.sm %></td>
+                    </tr>
+                    <tr>
+                        <td>Female</td>
+                        <td><%= report.sf %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="mt-5 mb-3 text-muted text-center">&copy; 2018 - Nodejs Sample Project</footer>
+    </div>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

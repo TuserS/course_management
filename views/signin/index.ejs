@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>signin</title>
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="css/sign.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+
+    <form class="form-signin" method="post" action="/signin">
+
+        <% if( sText ){ %>
+                <p class="alert alert-success"><%= sText %></p>
+        <% } %>
+
+        <% if( fText ){ %>
+                <p class="alert alert-danger"><%= fText %></p>
+        <% } %>
+
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        <a class="nav-link active" href="/signup">Create Account</a>
+        <p class="mt-5 mb-3 text-muted">&copy; 2018 - Nodejs Sample Project</p>
+    </form>
+
+
+</body>
+
+</html>
